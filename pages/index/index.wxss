@@ -1,0 +1,4 @@
+/* 使用主题颜色 */
+page{
+  /* color: var(--themeColor) */
+}

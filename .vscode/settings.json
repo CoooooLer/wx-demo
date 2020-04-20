@@ -1,0 +1,9 @@
+{
+  "css.remoteStyleSheets": [
+
+  ],
+  "git.defaultCloneDirectory": "",
+  "less.compile": {
+    "outExt": ".wxss"
+  }
+}
