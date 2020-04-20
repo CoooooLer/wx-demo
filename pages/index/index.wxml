@@ -1,3 +1,48 @@
 <view>
+
   <searchInput></searchInput>
+
+  <view class="index-swiper">
+    <swiper indicator-dots autoplay circular>
+      <swiper-item wx:for="{{ swiperList }}" wx:key="goods_id" circular="true">
+        <image class="" src="{{ item.image_src }}" mode="widthFix">
+          
+        </image>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="index-cate">
+    <navigator wx:for="{{ cateList }}" 
+    wx:key="index" open-type="navigate">
+      <image mode="widthFix" src="{{ item.image_src }}" />
+    </navigator>
+  </view>
+
+  <view class="index-floor">
+    <view class="floor-group" 
+    wx:for="{{ floorList }}" 
+    wx:for-item="item1" 
+    wx:for-index="index2" 
+    wx:key="floor_title">
+      <!-- 标题 -->
+      <view class="floor-title">
+        <image src="{{ item1.floor_title.image_src }}" mode="widthFix">
+        </image>
+      </view>
+      <!-- 内容 -->
+      <view class="floor-list">
+        <navigator url="{{ item2.navigator_url }}" open-type="navigate"
+         wx:for="{{ item1.product_list }}"
+          wx:for-item="item2"
+          wx:for-index="index2"
+          wx:key="name">
+          <image src="{{ item2.image_src }}" mode="{{ index2 == 0 ? 'widthFix' : 'scaleToFill' }}">
+            
+          </image>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
 </view>
