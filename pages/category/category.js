@@ -1,5 +1,7 @@
 // pages/category/category.js
 import { request } from "../../request/index"
+import regeneratorRuntime from '../../lib/runtime/runtime'
+
 Page({
 
   /**
@@ -9,6 +11,7 @@ Page({
     leftMenuList: [], // 左侧的菜单
     rightContent: [], // 右侧的内容
     currentIndex: 0, // 左侧选中的菜单
+    scrollTop: 0, // 右侧商品距离顶部的距离
   },
   cate: [], 
   /**
@@ -35,31 +38,44 @@ Page({
       }
     }
   },
-  getCate() {
-    request({
-      url: "https://api-hmugo-web.itheima.net/api/public/v1/categories"
+  async getCate() {
+    let res = await request({  url: "categories" })
+    this.cate = res;
+    wx.setStorageSync('time', Date.now());
+    wx.setStorageSync('cate', this.cate)
+    // 构造=左侧菜单
+    let leftMenuList = this.cate.map(v => v.cat_name);
+    let rightContent = this.cate[0].children;
+    this.setData({
+      leftMenuList,
+      rightContent
     })
-      .then(res => {
-        // console.log(res.data.message)
-        this.cate = res.data.message;
-        wx.setStorageSync('time', Date.now());
-        wx.setStorageSync('cate', this.cate)
-        // 构造=左侧菜单
-        let leftMenuList = this.cate.map(v => v.cat_name);
-        let rightContent = this.cate[0].children;
-        this.setData({
-          leftMenuList,
-          rightContent
-        })
-      })
+
+    // request({
+    //   url: "categories"
+    // })
+    //   .then(res => {
+    //     // console.log(res.data.message)
+    //     this.cate = res.data.message;
+    //     wx.setStorageSync('time', Date.now());
+    //     wx.setStorageSync('cate', this.cate)
+    //     // 构造=左侧菜单
+    //     let leftMenuList = this.cate.map(v => v.cat_name);
+    //     let rightContent = this.cate[0].children;
+    //     this.setData({
+    //       leftMenuList,
+    //       rightContent
+    //     })
+    //   })
   },
-  handleMenuTap(e) {
+  handleMenuTap(e) { // 点击左侧菜单求换商品
     // console.log(e)
     const { index } = e.currentTarget.dataset;
     let rightContent = this.cate[index].children;
     this.setData({
       currentIndex: index,
       rightContent,
+      scrollTop: 0
     })
   }
 

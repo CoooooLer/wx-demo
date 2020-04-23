@@ -15,7 +15,7 @@
      </view>
     </scroll-view>
     <!-- 右边的内容 -->
-    <scroll-view class="right-content" scroll-y="{{true}}">
+    <scroll-view class="right-content" scroll-y="{{true}}" scroll-top="{{ scrollTop }}">
       <view class="goods-group"
         wx:for="{{ rightContent }}"
         wx:for-index="index1"
@@ -33,6 +33,7 @@
             wx:for-item="item2"
             wx:for-index="index2"
             wx:key="cat_id"
+            url="/pages/goods_list/goods_list?cid={{ item2.cat_id }}"
           >
             <image class="" src="{{ item2.cat_icon }}" mode="widthFix" lazy-load="false" binderror="" bindload=""/>
             <view class="goods-name">

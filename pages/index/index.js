@@ -22,33 +22,33 @@ Page({
   // 轮播图
   getSwiperList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/swiperdata'
+      url: 'home/swiperdata'
     })
       .then(res => {
         this.setData({
-          swiperList: res.data.message
+          swiperList: res
         })
       })    
   },
   // 导航栏
   getCateList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/catitems'
+      url: 'home/catitems'
     })
       .then(res => {
         this.setData({
-          cateList: res.data.message
+          cateList: res
         })
       })    
   },
    // 楼层
    getFloorList() {
     request({
-      url: 'https://api-hmugo-web.itheima.net/api/public/v1/home/floordata'
+      url: 'home/floordata'
     })
       .then(res => {
         this.setData({
-          floorList: res.data.message
+          floorList: res
         })
       })    
   },

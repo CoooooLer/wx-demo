@@ -31,7 +31,6 @@
 }
 .index-floor .floor-group .floor-list navigator:nth-last-child(-n+4) {
   height: 27.72711207vw;
-  padding: 5rpx;
 }
 .index-floor .floor-group .floor-list navigator image {
   width: 100%;
