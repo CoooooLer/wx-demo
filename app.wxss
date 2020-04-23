@@ -10,3 +10,6 @@ page,view,text,image,swiper{
 page{
   --themeColor: #eb4450;
 }
+image{
+  width: 100%;
+}

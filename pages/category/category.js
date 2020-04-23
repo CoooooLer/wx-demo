@@ -1,66 +1,66 @@
 // pages/category/category.js
+import { request } from "../../request/index"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    leftMenuList: [], // 左侧的菜单
+    rightContent: [], // 右侧的内容
+    currentIndex: 0, // 左侧选中的菜单
   },
-
+  cate: [], 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // 通过时间戳 做一个缓存
+    const cate = wx.getStorageSync('cate');
+    const time = wx.getStorageSync('time');
+    if(!cate) {
+      this.getCate()
+    } else {
+      if(Date.now() - time > 10*1000){
+        this.getCate()
+      } else {
+        this.cate = cate;
+        // 构造=左侧菜单
+        let leftMenuList = this.cate.map(v => v.cat_name);
+        let rightContent = this.cate[0].children;
+        this.setData({
+          leftMenuList,
+          rightContent
+        })
+      }
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  getCate() {
+    request({
+      url: "https://api-hmugo-web.itheima.net/api/public/v1/categories"
+    })
+      .then(res => {
+        // console.log(res.data.message)
+        this.cate = res.data.message;
+        wx.setStorageSync('time', Date.now());
+        wx.setStorageSync('cate', this.cate)
+        // 构造=左侧菜单
+        let leftMenuList = this.cate.map(v => v.cat_name);
+        let rightContent = this.cate[0].children;
+        this.setData({
+          leftMenuList,
+          rightContent
+        })
+      })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  handleMenuTap(e) {
+    // console.log(e)
+    const { index } = e.currentTarget.dataset;
+    let rightContent = this.cate[index].children;
+    this.setData({
+      currentIndex: index,
+      rightContent,
+    })
   }
+
 })
