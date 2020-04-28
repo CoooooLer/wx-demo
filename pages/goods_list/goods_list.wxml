@@ -1,4 +1,25 @@
 <view class="goods-list">
   <searchInput></searchInput>
-  <tab tab="{{ tab }}"></tab>
+  <tab tab="{{ tab }}" bindtabItemTap="changeTabItem">
+    <block wx:if="{{ tab[0].isActive }}">
+      <view class="first-tab">
+        <navigator 
+          class="goods-item" 
+          wx:key="goods_id"
+          wx:for="{{ goods_list }}"
+          url="/pages/goods_detail/goods_detail?goods_id={{ item.goods_id }}"
+        >
+          <view class="goods-img">
+            <image class="" src="{{ item.goods_small_logo }}" mode="widthFix"></image>
+          </view>
+          <view class="goods-info">
+            <view class="goods-name">{{ item.goods_name }}</view>
+            <view class="goods-price">{{ item.goods_price }}</view>
+          </view>
+        </navigator>
+      </view>
+    </block>
+    <block wx:elif="{{ tab[1].isActive }}">1</block>
+    <block wx:else="{{ tab[2].isActive }}">2</block>
+  </tab>
 </view>

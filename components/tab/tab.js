@@ -23,7 +23,7 @@ Component({
   methods: {
     handleTitleTap(e) {
       let {index} = e.currentTarget.dataset;
-      console.log(index);
+      this.triggerEvent('tabItemTap', index)
     }
   }
 })

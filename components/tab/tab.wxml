@@ -11,5 +11,6 @@
     </view>
   </view>
   <view class="tab-content">
+    <slot></slot>
   </view>
 </view>

@@ -70,6 +70,13 @@
 					"pathName": "pages/goods_list/goods_list",
 					"query": "cid=19",
 					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "商品详情",
+					"pathName": "pages/goods_detail/goods_detail",
+					"query": "goods_id=27283",
+					"scene": null
 				}
 			]
 		}

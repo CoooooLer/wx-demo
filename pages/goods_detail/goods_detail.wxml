@@ -1,2 +1,60 @@
-<!--pages/goods_detail/goods_detail.wxml-->
-<text>pages/goods_detail/goods_detail.wxml</text>
+<view class="detail">
+  <swiper indicator-dots autoplay circular>
+    <swiper-item 
+      class="" 
+      wx:for="{{ goodsObj.pics }}"
+      wx:key="pics_id"
+      bindtap="handlePreviewImg"
+      data-url="{{ item.pics_big }}"
+    >
+      <image class="" src="{{ item.pics_big }}" mode="widthFix">
+        
+      </image>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="price-box">
+  <view class="price">￥{{ goodsObj.goods_price }}</view>
+  <view class="title-box">
+    <view class="left">{{ goodsObj.goods_name }}</view>
+    <view class="right">
+      <view class="iconfont icon-shoucang"></view>
+      <view class="">收藏</view>
+    </view>
+  </view>
+</view>
+
+<view class="goods-info">
+  <view class="title">
+    图文详情
+  </view>
+  <view class="content">
+    <rich-text class="" nodes="{{goodsObj.goods_introduce}}">
+      
+    </rich-text>
+  </view>
+</view>
+
+<view class="btm-tool">
+  <view class="item">
+    <view class="iconfont icon-kefu"> </view>
+    <view class="word">客服</view>
+    <button open-type="contact"></button>
+  </view>
+  <view class="item">
+    <view class="iconfont icon-kefu"> </view>
+    <view class="word">分享</view>
+    <button open-type="share"></button>
+  </view>
+  <navigator class="item" url="/pages/cart/cart" open-type="reLaunch">
+    <view class="iconfont icon-kefu"> </view>
+    <view class="word">购物车</view>
+  </navigator>
+  <view class="item btn-cart">
+    <view class="word ">加入购物车</view>
+  </view>
+  <view class="item btn-buy">
+    <view class="word">立即购买</view>
+  </view>
+</view>

@@ -1,4 +1,7 @@
 // pages/goods_list/goods_list.js
+import { request } from "../../request/index"
+import regeneratorRuntime from '../../lib/runtime/runtime'
+
 Page({
 
   /**
@@ -21,48 +24,57 @@ Page({
         value: "价格",
         isActive: false
       }
-    ]
+    ],
+    goods_list: []
   },
-
+  queryParams: {
+    query: "",
+    cid: "",
+    pagenum: 1,
+    pagesize: 10
+  },
+  totalNum: 0,
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    // console.log(options)
+    this.queryParams.cid = options.cid;
+    this.getGoodsList();
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  async getGoodsList() {
+    let res = await request({
+      url: 'goods/search',
+      data: this.queryParams
+    });
+    const { total } = res;
+    this.totalNum = Math.ceil(total / this.queryParams.pagesize)
+    this.setData({
+      goods_list: [...this.data.goods_list,...res.goods]
+    })
+    
+    wx.stopPullDownRefresh()
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  changeTabItem(e){
+    let index = e.detail;
+    let {tab} = this.data;
+    tab.forEach((v, i) => i==index ? v.isActive = true : v.isActive = false)
+    this.setData({
+      tab
+    })
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({
+      goods_list: []
+    })
+
+    this.queryParams.pagenum = 1
+
+    this.getGoodsList()
 
   },
 
@@ -70,7 +82,18 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    if(this.queryParams.pagenum >= this.totalNum) {
+      wx.showToast({
+        title: '没有更多商品了',
+        icon: 'none',
+      });
+    } else {
+    
+      this.queryParams.pagenum++;
+      this.getGoodsList();
+      
 
+    }
   },
 
   /**
