@@ -51,7 +51,7 @@
     <view class="iconfont icon-kefu"> </view>
     <view class="word">购物车</view>
   </navigator>
-  <view class="item btn-cart">
+  <view class="item btn-cart" bindtap="handleAddCart">
     <view class="word ">加入购物车</view>
   </view>
   <view class="item btn-buy">

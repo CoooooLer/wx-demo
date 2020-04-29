@@ -30,6 +30,23 @@ Page({
       }
      })
   },
+  handleAddCart(){
+    let cart = wx.getStorageSync('cart') || [] ;
+    let index = cart.findIndex(v => v.goods_id == this.goodsInfo.goods_id)
+    if(index == -1){
+      this.goodsInfo.num = 1;
+      cart.push(this.goodsInfo);
+    } else {
+      cart[index].num++;
+    }
+    wx.setStorageSync('cart', cart);
+    wx.showToast({
+      title: '加入购物车成功',
+      icon: 'success',
+      mask: true
+    });
+
+  },
   handlePreviewImg(e) {
     const urls = this.goodsInfo.pics.map(v => v.pics_big)
     // console.log(e)
