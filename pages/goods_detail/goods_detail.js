@@ -30,11 +30,13 @@ Page({
       }
      })
   },
+  // 添加到购物车
   handleAddCart(){
     let cart = wx.getStorageSync('cart') || [] ;
     let index = cart.findIndex(v => v.goods_id == this.goodsInfo.goods_id)
     if(index == -1){
       this.goodsInfo.num = 1;
+      this.goodsInfo.checked = true;
       cart.push(this.goodsInfo);
     } else {
       cart[index].num++;

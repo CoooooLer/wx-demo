@@ -48,7 +48,7 @@
     <button open-type="share"></button>
   </view>
   <navigator class="item" url="/pages/cart/cart" open-type="reLaunch">
-    <view class="iconfont icon-kefu"> </view>
+    <view class="iconfont icon-gouwuche"> </view>
     <view class="word">购物车</view>
   </navigator>
   <view class="item btn-cart" bindtap="handleAddCart">

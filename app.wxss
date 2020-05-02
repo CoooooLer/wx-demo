@@ -13,3 +13,6 @@ page{
 image{
   width: 100%;
 }
+view{
+  font-size: 30rpx;
+}
