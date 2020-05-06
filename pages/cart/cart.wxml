@@ -25,33 +25,40 @@
   <view class="cart-title">
     购物车
   </view>
-  <view 
-    class="cart-item" 
-    wx:for="{{ cart }}"
-    wx:key="goods_id"
-  >
-    <view class="item-check">
-      <checkbox-group bindchange="handleChangeItem" data-id="{{ item.goods_id }}">
-        <checkbox checked="{{ item.checked }}"></checkbox>
-      </checkbox-group>
-    </view>
-    <view class="item-img">
-      <image class="" src="{{ item.goods_big_logo }}" mode="widthFix"></image>
-    </view>
-    <view class="item-info">
-      <view class="info-title">
-        {{ item.goods_name }}
+  <block wx:if="{{cart.length !== 0}}">
+    <view 
+      class="cart-item" 
+      wx:for="{{ cart }}"
+      wx:key="goods_id"
+    >
+      <view class="item-check">
+        <checkbox-group bindchange="handleChangeItem" data-id="{{ item.goods_id }}">
+          <checkbox checked="{{ item.checked }}"></checkbox>
+        </checkbox-group>
       </view>
-      <view class="info-price-box">
-        <view class="price">￥{{ item.goods_price }}</view>
-        <view class="price-num">
-          <view class="num-reduce">-</view>
-          <view class="num-num">{{ item.num }}</view>
-          <view class="num-plus">+</view>
+      <view class="item-img">
+        <image class="" src="{{ item.goods_big_logo }}" mode="widthFix"></image>
+      </view>
+      <view class="item-info">
+        <view class="info-title">
+          {{ item.goods_name }}
+        </view>
+        <view class="info-price-box">
+          <view class="price">￥{{ item.goods_price }}</view>
+          <view class="price-num">
+            <view bindtap="handleItemNumEdit" data-id="{{ item.goods_id }}" data-operation="-1" class="num-reduce">-</view>
+            <view class="num-num">{{ item.num }}</view>
+            <view bindtap="handleItemNumEdit" data-id="{{ item.goods_id }}" data-operation="1" class="num-plus">+</view>
+          </view>
         </view>
       </view>
     </view>
-  </view>
+  </block>
+  <block wx:else>
+    <image class="" src="http://hbimg.b0.upaiyun.com/e1b1467beea0a9c7d6a56b32bac6d7e5dcd914f7c3e6-YTwUd6_fw658" mode="widthFix">
+      
+    </image>
+  </block>
 </view>
 
 <!-- 全选 -->

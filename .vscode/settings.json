@@ -9,5 +9,6 @@
   "editor.fontSize": 18,
   "editor.accessibilityPageSize": 16,
   "editor.tabSize": 2,
-  "files.autoSaveDelay": 3000
+  "files.autoSaveDelay": 3000,
+  "files.autoSave": "afterDelay"
 }

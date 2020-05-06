@@ -101,6 +101,41 @@ Page({
     wx.setStorageSync('cart', cart)
 
   },
+  // 物品 增加 减少 操作
+  handleItemNumEdit(e) {
+    const { id, operation } = e.currentTarget.dataset;
+    let { cart } = this.data;
+    const index = cart.findIndex(v => v.goods_id === id)
+    if(operation == -1 && cart[index].num == 1) {
+     
+        wx.showModal({
+          title: '',
+          content: '确定删除该商品吗？',
+          showCancel: true,
+          cancelText: '取消',
+          cancelColor: '#000000',
+          confirmText: '确定',
+          confirmColor: '#3CC51F',
+          success: (res) => {
+            if (res.confirm) {
+              cart.splice(index, 1)
+              this.setCart(cart)
+            } 
+
+          },
+          fail: (err)=>{
+            console.log(err)
+          }
+        });
+     
+    }else if(operation == -1 && cart[index].num > 1) {
+      cart[index].num--
+    } else {
+      cart[index].num++
+    }
+    console.log(1)
+    this.setCart(cart)
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

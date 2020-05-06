@@ -1,4 +1,3 @@
-// pages/goods_detail/goods_detail.js
 import { request } from "../../request/index"
 import regeneratorRuntime from '../../lib/runtime/runtime'
 
