@@ -1,4 +1,4 @@
-import { getSetting, chooseAddress, openSetting } from "../../request/asyncWx.js"
+import { getSetting, chooseAddress, openSetting, showToast } from "../../request/asyncWx.js"
 import regeneratorRuntime from '../../lib/runtime/runtime'
 
 Page({
@@ -40,8 +40,21 @@ Page({
     }
 
   },
-
-
+  // 结算
+  handlePay() {
+    const { address, totalNum } = this.data;
+    if(!address) {
+      showToast('请填写收货地址！！！')
+      return ;
+    }
+    if(!totalNum) {
+      showToast("购物车还没有商品哦！！！")
+      return ;
+    }
+    wx.navigateTo({
+      url: '/pages/pay/pay',
+    });
+  },
 
   /**
    * 生命周期函数--监听页面显示
