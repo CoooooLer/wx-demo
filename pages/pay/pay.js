@@ -22,18 +22,21 @@ Page({
 
   // 结算
   handlePay() {
-    const { address, totalNum } = this.data;
-    if(!address) {
-      showToast('请填写收货地址！！！')
-      return ;
-    }
-    if(!totalNum) {
-      showToast("购物车还没有商品哦！！！")
-      return ;
-    }
-    wx.navigateTo({
-      url: '/pages/pay/pay',
-    });
+    let cart = wx.getStorageSync('cart');
+    let newCart = cart.filter(v => v.checked == false);
+    showToast('支付成功')
+    wx.setStorageSync('cart', newCart);
+    setTimeout(() => {
+      wx.switchTab({
+        url: '/pages/cart/cart',
+        success: (result)=>{
+          console.log(result)
+        },
+        fail: (err)=>{
+          console.log(err)
+        }
+      });
+    }, 2000)
   },
 
   /**
